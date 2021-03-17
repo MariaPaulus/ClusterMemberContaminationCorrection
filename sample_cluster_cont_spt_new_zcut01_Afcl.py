@@ -111,17 +111,6 @@ list_num = list_num0[mask_inv]
 m500 = m5000[mask_inv]
 
 
-#lamb = np.delete(lamb,[0,2,3,6,10,19,21,22,23,27,32,36,64,99,111,113,126,132,133,139,148,152,180,182,188,191,197])
-#z = np.delete(z,[0,2,3,6,10,19,21,22,23,27,32,36,64,99,111,113,126,132,133,139,148,152,180,182,188,191,197])
-#list_n_s1 = np.delete(list_n_s1,[0,2,3,6,10,19,21,22,23,27,32,36,64,99,111,113,126,132,133,139,148,152,180,182,188,191,197], axis=0)
-#list_n_f1 = np.delete(list_n_f1,[0,2,3,6,10,19,21,22,23,27,32,36,64,99,111,113,126,132,133,139,148,152,180,182,188,191,197], axis=0)
-#field_200 = np.delete(field_200,[0,2,3,6,10,19,21,22,23,27,32,36,64,99,111,113,126,132,133,139,148,152,180,182,188,191,197], axis=0)
-#field = np.delete(field,[0,2,3,6,10,19,21,22,23,27,32,36,64,99,111,113,126,132,133,139,148,152,180,182,188,191,197], axis=0)
-#list_num = np.delete(list_num,[0,2,3,6,10,19,21,22,23,27,32,36,64,99,111,113,126,132,133,139,148,152,180,182,188,191,197], axis=0)
-#m500 = np.delete(m500,[0,2,3,6,10,19,21,22,23,27,32,36,64,99,111,113,126,132,133,139,148,152,180,182,188,191,197], axis=0)
-#smoothed_var_new = np.delete(smoothed_var_new,[0,2,3,6,10,19,21,22,23,27,32,36,64,99,111,113,126,132,133,139,148,152,180,182,188,191,197], axis=0)
-#smoothed_cosmic_var = np.delete(smoothed_cosmic_var,[0,2,3,6,10,19,21,22,23,27,32,36,64,99,111,113,126,132,133,139,148,152,180,182,188,191,197], axis=0)
-
 field[field==0] = 10e-6
 
 
@@ -153,8 +142,8 @@ mapping = {'A_fcl_1':0,
 x0 = float(sys.argv[1])
 print x0
 
-constants = {'lambda0': 72.,   #76.,     
-             'z0': 0.56,  #0.53,
+constants = {'lambda0': lambda_pivot (e.g.median richness of sample),   
+             'z0': redshift_pivot (e.g.median redshift of sample), 
              'C_mu': 0,
              'C_sigma': 0,
              'M0': 14.371,
@@ -165,13 +154,11 @@ constants = {'lambda0': 72.,   #76.,
              'rbins': 9,
              'x0': x0}
 
-#c = ClustContCorr(cosmo1, constants, mapping, lamb, z, list_n_s1, list_n_f1, edges_f, list_num, m500, smoothed_var_sys, smoothed_cosmic_var)#, randoms_var_smoothed)
+
 c = ClustContCorr(cosmo1, constants, mapping, lamb, z, list_n_s1[:,0:8,:], field, edges_f, list_num[:,0:8], m500)
-#c = ClustContCorr(cosmo1, constants, mapping, lamb1, z1, list_n_s11, list_n_f11, edges_f, list_num1, m5001, smoothed_var_sys1, smoothed_cosmic_var1)
 
 chain.addLikelihoodModule(c)
 
-#priors = ClustContCorrPrior(mapping, keys=['B_fcl','mu0', 'sigma0','c'], means=np.array([0.34, 0.12, 0.113, 1.54]), sigma=np.array([0.04, 0.003, 0.003, 0.1]))
 priors = ClustContCorrPrior(mapping, keys=['B_fcl','mu0', 'sigma0','c'], means=np.array([0.35, 0.11, 0.10, 1.7]), sigma=np.array([0.04, 0.003, 0.003, 0.11]))
 
 
