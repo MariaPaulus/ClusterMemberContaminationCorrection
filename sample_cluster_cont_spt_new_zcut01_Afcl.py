@@ -44,43 +44,6 @@ params = np.array([#[0.1, -0.2, 1.2,  0.04],
 chain = LikelihoodComputationChain(params[:, 1], params[:, 2])
 
 
-#a = 0   #154
-#b = 289 #264 
-
-#lamb0 = np.load('cluster_cont_like_data/lamb_spt_xi4_z015_z09_fcont01_mass.npy')[a:b]
-#z0 = np.load('cluster_cont_like_data/z_spt_xi4_z015_z09_fcont01_mass.npy')[a:b]
-#list_n_s10 = np.load('cluster_cont_like_data/list_n_s1_spt_xi4_z015_z09_fcont01_mass.npy')[a:b,:,:]
-#edges_f = np.load('cluster_cont_like_data/edges_f_spt_xi4_z015_z09_fcont01_mass.npy')
-#list_num0 = np.load('cluster_cont_like_data/list_num_spt_xi4_z015_z09_fcont01_mass.npy')[a:b,:]
-#m5000 = np.load('cluster_cont_like_data/mass500_spt_xi4_z015_z09_fcont01_mass.npy')[a:b]
-
-
-
-#lamb0 = np.load('cluster_cont_like_data/lamb_spt_xi4_z025_z09_fcont01_mass_01_30zbins.npy')[a:b]
-#z0 = np.load('cluster_cont_like_data/z_spt_xi4_z025_z09_fcont01_mass_01_30zbins.npy')[a:b]
-#list_n_s10 = np.load('cluster_cont_like_data/list_n_s1_spt_xi4_z025_z09_fcont01_mass_01_30zbins.npy')[a:b,:,:]
-#list_n_f10 = np.load('cluster_cont_like_data/list_n_f1_spt_xi4_z025_z09_fcont01_mass.npy')[a:b,:]
-#list_n_f10 = np.load('cluster_cont_like_data/list_n_f1_200_mock_both_spt.npy')#[a:b,:]
-#edges_f = np.load('cluster_cont_like_data/edges_f_spt_xi4_z025_z09_fcont01_mass_01_30zbins.npy')
-#list_num0 = np.load('cluster_cont_like_data/list_num_spt_xi4_z025_z09_fcont01_mass_01_30zbins.npy')[a:b,:]
-#m5000 = np.load('cluster_cont_like_data/mass500_spt_xi4_z025_z09_fcont01_mass_01_30zbins.npy')[a:b]
-
-#lamb0 = np.load('cluster_cont_like_data/lamb_spt_xi4_z015_z09_fcont01_mass_01_30zbins.npy')[a:b]
-#z0 = np.load('cluster_cont_like_data/z_spt_xi4_z015_z09_fcont01_mass_01_30zbins.npy')[a:b]
-#list_n_s10 = np.load('cluster_cont_like_data/list_n_s1_spt_xi4_z015_z09_fcont01_mass_01_30zbins.npy')[a:b,:,:]
-#edges_f = np.load('cluster_cont_like_data/edges_f_spt_xi4_z015_z09_fcont01_mass_01_30zbins.npy')
-#list_num0 = np.load('cluster_cont_like_data/list_num_spt_xi4_z015_z09_fcont01_mass_01_30zbins.npy')[a:b,:]
-#m5000 = np.load('cluster_cont_like_data/mass500_spt_xi4_z015_z09_fcont01_mass_01_30zbins.npy')[a:b]
-
-#lamb0 = np.load('cluster_cont_like_data/lamb_spt_xi4_z015_z09_fcont01_mass_01_30zbins_szcentres.npy')[a:b]
-#z0 = np.load('cluster_cont_like_data/z_spt_xi4_z015_z09_fcont01_mass_01_30zbins_szcentres.npy')[a:b]
-#list_n_s10 = np.load('cluster_cont_like_data/list_n_s1_spt_xi4_z015_z09_fcont01_mass_01_30zbins_szcentres.npy')[a:b,:,:]
-#edges_f = np.load('cluster_cont_like_data/edges_f_spt_xi4_z015_z09_fcont01_mass_01_30zbins_szcentres.npy')
-#list_num0 = np.load('cluster_cont_like_data/list_num_spt_xi4_z015_z09_fcont01_mass_01_30zbins_szcentres.npy')[a:b,:]
-#m5000 = np.load('cluster_cont_like_data/mass500_spt_xi4_z015_z09_fcont01_mass_01_30zbins_szcentres.npy')[a:b]
-
-
-#field0 = (list_n_s10[:,7,:] * list_num0[:,7,None] + list_n_s10[:,8,:] * list_num0[:,8,None])/(list_num0[:,7,None] + list_num0[:,8,None]) 
 
 a = 0   
 b = 327  
@@ -93,7 +56,7 @@ list_num0 = np.load('cluster_cont_like_data/list_num_spt_xi4_z015_z13_fcont01_ma
 m5000 = np.load('cluster_cont_like_data/mass500_spt_xi4_z015_z13_fcont01_mass_01_30zbins.npy')[a:b]
 
 field0 = list_n_s10[:,8,:]
-#field0 = (list_n_s10[:,7,:] * list_num0[:,7,None] + list_n_s10[:,8,:] * list_num0[:,8,None])/(list_num0[:,7,None] + list_num0[:,8,None]) 
+
 
 
 def get_mask(array):
@@ -138,21 +101,14 @@ mapping = {'A_fcl_1':0,
            'c': 13}
 
 
-
-x0 = float(sys.argv[1])
-print x0
-
 constants = {'lambda0': lambda_pivot (e.g.median richness of sample),   
              'z0': redshift_pivot (e.g.median redshift of sample), 
              'C_mu': 0,
              'C_sigma': 0,
-             'M0': 14.371,
-             'Flam': 1.12,
-             'Gz': 0.18,
              'rmin': 0.25,
              'rmax': 10.4,
              'rbins': 9,
-             'x0': x0}
+             'x0': 1.01}
 
 
 c = ClustContCorr(cosmo1, constants, mapping, lamb, z, list_n_s1[:,0:8,:], field, edges_f, list_num[:,0:8], m500)
