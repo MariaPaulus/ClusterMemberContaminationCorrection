@@ -1,9 +1,6 @@
 from __future__ import division
 from math import sqrt
 import numpy as np
-import sys
-sys.path.append('/home/grandis/source/')
-import ClusterCosmologyModules as ccm
 from colossus.cosmology import cosmology
 from colossus import halo
 from colossus.halo import concentration
@@ -208,7 +205,7 @@ class ClustContCorr(object):
         rbin_edges = np.logspace(np.log10(params['rmin']),np.log10(params['rmax']),params['rbins']+1,endpoint=True)
         rmean = 2./3. *(rbin_edges[1:]**3-rbin_edges[:-1]**3)/ (rbin_edges[1:]**2-rbin_edges[:-1]**2)
 
-        x = rmean[0:8] / rs #* np.pi/180. # , rs and rmean should both be in Mpc!
+        x = rmean[0:8] / rs # , rs and rmean should both be in Mpc!
 
         x0=params['x0']
         
